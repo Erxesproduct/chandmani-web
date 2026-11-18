@@ -420,3 +420,75 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* ── Sparkles, hiding header, mega menu, hero carousel ─────────────────────── */
+@layer components {
+  .twinkle {
+    position: absolute;
+    pointer-events: none;
+    color: var(--color-gilt-2);
+    translate: -50% -50%;
+    filter: drop-shadow(0 0 6px rgb(230 207 159 / 0.75));
+    animation: twinkle var(--t, 4s) ease-in-out infinite var(--d, 0s);
+    opacity: 0.55;
+  }
+  .site-header {
+    transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .site-header[data-hidden="true"] {
+    transform: translateY(-100%);
+  }
+  .mega {
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-6px);
+    transition:
+      opacity 0.35s ease,
+      transform 0.35s ease,
+      visibility 0s linear 0.35s;
+  }
+  .mega-item:hover > .mega,
+  .mega-item:focus-within > .mega {
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+    transition-delay: 0.08s, 0.08s, 0s;
+  }
+  .mega-item > a::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -1px;
+    width: 7px;
+    height: 7px;
+    border-left: 1px solid var(--gilt);
+    border-top: 1px solid var(--gilt);
+    background: var(--color-paper);
+    transform: translate(-50%, 50%) rotate(45deg) scale(0);
+    transition: transform 0.3s ease;
+    z-index: 2;
+  }
+  .mega-item:hover > a::after,
+  .mega-item:focus-within > a::after {
+    transform: translate(-50%, 50%) rotate(45deg) scale(1);
+  }
+  .slide {
+    opacity: 0;
+    transition: opacity 1.6s ease;
+  }
+  .slide[data-on="true"] {
+    opacity: 1;
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.12;
+    transform: scale(0.45) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1) rotate(45deg);
+  }
+}

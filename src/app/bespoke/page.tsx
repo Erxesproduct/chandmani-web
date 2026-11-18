@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ChatIcon, MailIcon, PhoneIcon } from "@/components/icons";
 import { Reveal } from "@/components/reveal";
+import { Sparkles } from "@/components/sparkles";
 import { business } from "@/content/business";
 import { banners, lede, posts } from "@/lib/catalog";
 
@@ -27,8 +28,9 @@ export default function BespokePage() {
     <>
       <section className="panel-dark relative isolate overflow-hidden">
         {hero && <Image src={hero.src} alt="" width={hero.w} height={hero.h} priority sizes="100vw" className="kenburns absolute inset-0 -z-10 h-full w-full object-cover object-[75%_50%] opacity-95" />}
-        <span className="absolute inset-0 -z-10 bg-gradient-to-r from-night via-night/85 to-night/20" aria-hidden />
-        <div className="wrap py-24 md:py-36">
+        <span className="absolute inset-0 -z-10 bg-gradient-to-r from-night via-night/80 to-transparent" aria-hidden />
+        <Sparkles count={16} seed={12} className="right-auto w-3/5" />
+        <div className="wrap relative py-24 md:py-36">
           <p className="caps rise text-gilt">Тусгай захиалга · Custom</p>
           <h1 className="display rise mt-5 max-w-3xl text-[46px] text-ivory md:text-[80px]" style={{ "--d": "150ms" } as React.CSSProperties}>
             Танай байгууллагын <em className="sheen">зангиа</em>
@@ -82,7 +84,8 @@ export default function BespokePage() {
       </section>
 
       <section className="wrap pt-28">
-        <div className="panel-dark relative px-6 py-16 text-center md:px-16 md:py-20">
+        <div className="panel-dark relative overflow-hidden px-6 py-16 text-center md:px-16 md:py-20">
+          <Sparkles count={14} seed={5} />
           <span className="pointer-events-none absolute inset-3 border border-gilt/25" aria-hidden />
           <p className="caps relative text-gilt">Холбогдох</p>
           <h2 className="display relative mt-4 text-[34px] md:text-[48px]">Загвараа хамтдаа бүтээе</h2>

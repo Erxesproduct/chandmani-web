@@ -3,12 +3,14 @@ import Link from "next/link";
 import { business } from "@/content/business";
 import { kinds } from "@/lib/catalog";
 import { formatPrice } from "@/lib/format";
+import { Sparkles } from "./sparkles";
 import { FacebookIcon, InstagramIcon, MailIcon, PhoneIcon } from "./icons";
 
 export function Footer() {
   return (
-    <footer className="panel-dark mt-28">
-      <div className="wrap pt-20 pb-10">
+    <footer className="panel-dark relative mt-28 overflow-hidden">
+      <Sparkles count={18} seed={99} className="h-80" />
+      <div className="wrap relative pt-20 pb-10">
         <div className="flex flex-col items-center text-center">
           <Image src="/brand/logo-gold.png" alt="CHANDMANI" width={1596} height={534} className="h-16 w-auto md:h-20" />
           <p className="display mt-6 max-w-xl text-[22px] text-ivory/85 italic md:text-[26px]">Эрхэм хүний хувцаслалтын нарийн ширийн зүйл.</p>

@@ -4,6 +4,8 @@ import { GiftIcon, ScissorsIcon, TieIcon, TruckIcon } from "@/components/icons";
 import { ProductCard } from "@/components/product-card";
 import { Reveal } from "@/components/reveal";
 import { Scroller } from "@/components/scroller";
+import { Sparkles } from "@/components/sparkles";
+import { HeroCarousel } from "@/components/hero-carousel";
 import { business } from "@/content/business";
 import { banners, collabs, colours, inStock, kinds, posts, products, type Product } from "@/lib/catalog";
 import { formatPrice } from "@/lib/format";
@@ -20,7 +22,8 @@ const SPECS = [
 ] as const;
 
 export default function HomePage() {
-  const [hero, single] = [banners.find((b) => b.src.includes("41286")) ?? banners[0], banners.find((b) => b.src.includes("41282")) ?? banners[0]];
+  const slides = ["41286", "41282", "41280"].map((id) => banners.find((b) => b.src.includes(id))).filter((b) => b != null);
+  const single = banners.find((b) => b.src.includes("41282")) ?? banners[0];
   const fresh = newest(inStock.filter((p) => p.kind === "tie")).slice(0, 12);
   const sets = newest(inStock.filter((p) => p.kind === "set" && p.images.length)).slice(0, 12);
   const clients = posts.filter((p) => p.custom && p.client);
@@ -29,29 +32,32 @@ export default function HomePage() {
 
   return (
     <>
-      {/* Hero: the gift-box wall, slowly settling, with the title on the dark side */}
+      {/* Hero: the shop's banners shown whole, then the title on a starlit band */}
       <section className="panel-dark relative isolate overflow-hidden">
-        {hero && <Image src={hero.src} alt="" width={hero.w} height={hero.h} priority sizes="100vw" className="kenburns absolute inset-0 -z-10 h-full w-full object-cover object-left opacity-80" />}
-        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-night via-night/80 to-night/10 md:via-night/60" aria-hidden />
-        <div className="absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-t from-night to-transparent" aria-hidden />
-        <div className="wrap flex min-h-[78svh] flex-col justify-center py-24 md:min-h-[640px]">
-          <p className="caps rise text-gilt" style={{ "--d": "100ms" } as React.CSSProperties}>
-            Est. {business.founded} · Улаанбаатар
-          </p>
-          <h1 className="display rise mt-6 max-w-3xl text-[52px] text-ivory sm:text-[72px] md:text-[96px]" style={{ "--d": "250ms" } as React.CSSProperties}>
-            Эрхэм хүний <em className="sheen">зангиа</em>
-          </h1>
-          <span className="draw mt-8 block h-px w-40 bg-gilt" style={{ "--d": "600ms" } as React.CSSProperties} aria-hidden />
-          <p className="rise mt-8 max-w-md text-[17px] leading-relaxed text-ivory/75 md:text-[18.5px]" style={{ "--d": "450ms" } as React.CSSProperties}>
-            Цэвэр торго, Монгол хээ, уламжлалт гар аргын хийц. Зангиа бүр Chandmani бэлгийн хайрцагтай.
-          </p>
-          <div className="rise mt-10 flex flex-wrap gap-3" style={{ "--d": "600ms" } as React.CSSProperties}>
-            <Link href="/shop?k=tie" className="btn btn-gold">
-              Цуглуулга үзэх
-            </Link>
-            <Link href="/bespoke" className="btn btn-line text-ivory">
-              Тусгай захиалга
-            </Link>
+        <HeroCarousel slides={slides} />
+        <div className="relative">
+          <Sparkles count={22} seed={7} />
+          <div className="wrap relative flex flex-col items-center py-16 text-center md:py-24">
+            <p className="caps rise text-gilt" style={{ "--d": "100ms" } as React.CSSProperties}>
+              Est. {business.founded} · Улаанбаатар
+            </p>
+            <h1 className="display rise mt-6 text-[50px] text-ivory sm:text-[68px] md:text-[92px]" style={{ "--d": "250ms" } as React.CSSProperties}>
+              Эрхэм хүний <em className="sheen">зангиа</em>
+            </h1>
+            <div className="rule draw mt-8 w-56" style={{ "--d": "500ms" } as React.CSSProperties}>
+              <span className="diamond" />
+            </div>
+            <p className="rise mt-8 max-w-lg text-[17px] leading-relaxed text-ivory/75 md:text-[18.5px]" style={{ "--d": "450ms" } as React.CSSProperties}>
+              Цэвэр торго, Монгол хээ, уламжлалт гар аргын хийц. Зангиа бүр Chandmani бэлгийн хайрцагтай.
+            </p>
+            <div className="rise mt-10 flex flex-wrap justify-center gap-3" style={{ "--d": "600ms" } as React.CSSProperties}>
+              <Link href="/shop?k=tie" className="btn btn-gold">
+                Цуглуулга үзэх
+              </Link>
+              <Link href="/bespoke" className="btn btn-line text-ivory">
+                Тусгай захиалга
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -77,7 +83,8 @@ export default function HomePage() {
       </section>
 
       {/* Collections */}
-      <section className="wrap pt-24">
+      <section className="wrap relative pt-24">
+        <Sparkles count={7} seed={61} tone="gold" min={8} max={16} className="h-56" />
         <Reveal className="flex flex-col items-center text-center">
           <p className="caps text-gold">Цуглуулга</p>
           <h2 className="display mt-4 text-[40px] md:text-[56px]">Хувцасны шүүгээнд</h2>
@@ -126,8 +133,9 @@ export default function HomePage() {
       </section>
 
       {/* Atelier: the tie cabinet and the craft in numbers */}
-      <section className="panel-dark mt-28">
-        <div className="grid lg:grid-cols-[1.25fr_1fr]">
+      <section className="panel-dark relative mt-28 overflow-hidden">
+        <Sparkles count={12} seed={21} className="left-auto w-full lg:w-[44%]" />
+        <div className="relative grid lg:grid-cols-[1.25fr_1fr]">
           <div className="relative min-h-[300px] overflow-hidden lg:min-h-[620px]">
             <Image src="/brand/atelier.webp" alt="Chandmani зангианы шүүгээ" width={1916} height={730} sizes="(min-width: 1024px) 56vw, 100vw" className="absolute inset-0 h-full w-full object-cover" />
             <span className="absolute inset-0 bg-gradient-to-t from-night/70 to-transparent lg:bg-gradient-to-l" aria-hidden />
@@ -159,7 +167,8 @@ export default function HomePage() {
       </section>
 
       {/* Colours */}
-      <section className="wrap pt-28">
+      <section className="wrap relative pt-28">
+        <Sparkles count={8} seed={77} tone="gold" min={8} max={15} className="h-64" />
         <Reveal className="flex flex-col items-center text-center">
           <p className="caps text-gold">Өнгөөр сонгох</p>
           <h2 className="display mt-4 text-[38px] md:text-[52px]">Костюмандаа тааруулаарай</h2>
@@ -181,8 +190,9 @@ export default function HomePage() {
       </section>
 
       {/* Gift sets: tie, pocket square and box */}
-      <section className="panel-dark mt-28 py-24">
-        <div className="wrap">
+      <section className="panel-dark relative mt-28 overflow-hidden py-24">
+        <Sparkles count={16} seed={33} />
+        <div className="wrap relative">
           <Reveal className="flex flex-wrap items-end justify-between gap-4">
             <div>
               <p className="caps text-gilt">Бэлэглэх</p>
@@ -204,7 +214,8 @@ export default function HomePage() {
       <section className="relative isolate overflow-hidden bg-night text-ivory">
         {single && <Image src={single.src} alt="" width={single.w} height={single.h} sizes="100vw" className="absolute inset-0 -z-10 h-full w-full object-cover object-[70%_50%] opacity-90" />}
         <span className="absolute inset-0 -z-10 bg-gradient-to-r from-night via-night/85 to-night/20" aria-hidden />
-        <div className="wrap py-24 md:py-32">
+        <Sparkles count={14} seed={45} className="right-auto w-1/2" />
+        <div className="wrap relative py-24 md:py-32">
           <Reveal className="max-w-xl">
             <p className="caps text-gilt">Тусгай захиалга</p>
             <h2 className="display mt-4 text-[40px] md:text-[58px]">Байгууллагын өнгө, логог торгонд</h2>
