@@ -1,0 +1,19 @@
+code,name,parentCode,productCount
+CH,Chandmani,,430
+CH-TIE,Зангиа,CH,119
+CH-SET,"Зангиа, алчуурын сэт",CH,169
+CH-BOW,Эрвээхэй зангиа,CH,50
+CH-POCKET,Энгэрийн алчуур,CH,27
+CH-ASCOT,Аскот,CH,17
+CH-GIFT,Бэлгийн багц,CH,29
+CH-SCARF,Эмэгтэй алчуур,CH,8
+CH-CLIP,Зангианы хавчаар,CH,4
+CH-PIN,Энгэрийн гоёл,CH,3
+CH-CARD,Бэлгийн карт,CH,3
+CH-CASE,Аялалын хайрцаг,CH,1
+CH-COLLAB,Хамтын бүтээл,CH,26
+CH-COLLAB-LAMY,Chandmani × Lamy,CH-COLLAB,7
+CH-COLLAB-PLASENCIA,Chandmani × Plasencia,CH-COLLAB,6
+CH-COLLAB-SF-SOAP,Chandmani × SF Soap,CH-COLLAB,8
+CH-COLLAB-MAN-BAR,Chandmani × Man Bar,CH-COLLAB,2
+CH-COLLAB-SPOOKY,Spooky ties,CH-COLLAB,3
