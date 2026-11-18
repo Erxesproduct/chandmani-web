@@ -87,3 +87,27 @@ Zochil has no eBarimt setting for this shop (`vat_enabled` is off on every produ
 
 Website (done): checkout asks «Хувь хүн» or «Байгууллага»; a company needs a 7-digit registry number, validated on the
 server; the order message carries it. Custom orders for organisations (see `/bespoke`) usually need a company receipt.
+
+## 1.4 Delivery zones, fees and order statuses
+
+**Website (done)**, from Zochil shop 11867:
+
+| Option | Fee | Rule |
+| --- | --- | --- |
+| Улаанбаатар хот дотор | 10,000₮, free from 200,000₮ | Delivered 24–48 hours after payment; address and phone must be exact |
+| Орон нутаг | told by phone | Countryside is enabled on Zochil but has no fee |
+
+- No order minimum on Zochil. **No pick-up** (not enabled on Zochil), so the checkout has none.
+- Exchange: ready-made products within 72 hours if unused, clean and not creased; custom-made products are not
+  returned, free repair within 14 days (Zochil terms). Shown on product pages and `/info#exchange`.
+- No international delivery (Zochil FAQ).
+
+**erxes (manual):**
+
+1. Import `docs/erxes/chandmani-delivery.csv`: services `DELIVERY-CITY` (10,000₮; staff set 0₮ from 200,000₮) and
+   `DELIVERY-COUNTRYSIDE` (no price).
+2. **Sales → Boards → «Онлайн захиалга» → pipeline «Вэбсайт»**, stages: Шинэ захиалга → Төлбөр хүлээгдэж буй →
+   Төлбөр баталгаажсан (100%) → Бэлтгэж байна → Хүргэлтэд гарсан → Хүргэгдсэн, plus «Цуцлагдсан» and «Солилт / засвар».
+3. A second pipeline **«Тусгай захиалга»** for organisation orders: Хүсэлт → Загварын хувилбар → Батлагдсан →
+   Урлаж байна → Хүлээлгэн өгсөн (the steps on `/bespoke`). Those requests come by email / phone today.
+4. **Frontline → Forms → (order form) → Settings**: create a sales card in «Шинэ захиалга» for every submission.
