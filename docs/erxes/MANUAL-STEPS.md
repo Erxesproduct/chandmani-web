@@ -62,3 +62,16 @@ Steps:
 5. Upload the photos (`public/images/p/*.webp`, 828 photos) on the products.
 6. Run `npm run sync:erxes` once with a Client Portal token (`ERXES_APP_TOKEN`) to confirm the codes match (it also
    refreshes `src/data/lite.json`, which the cart reads).
+
+## 1.2 Payment setup (QPay)
+
+Zochil: QPay (`qpay2`, Khan Bank) is the shop's only payment method. Payment rule: the order is confirmed only after
+100% payment. erxes 3.0 has a QPay payment kind (`backend/plugins/payment_api/src/constants.ts`).
+
+1. Get Chandmani's QPay merchant credentials (`client_id`, `client_secret`, `invoice_code`); ask QPay / Zochil
+   whether the existing merchant can be used outside Zochil. Owner: Terbish / Chandmani.
+2. **Settings → Payments → Add → QPay**: enter them. **Settings → Payments → (QPay) → Test**: a 100₮ invoice.
+3. **Sales → Pipelines → «Вэбсайт» → Settings → Payments**: select QPay.
+
+Website (done): checkout offers **QPay** only, validated on the server (bank transfer, cash and anything else are
+rejected). The browser's prices are ignored; the server prices every line from the catalog.
