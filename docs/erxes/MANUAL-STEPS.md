@@ -111,3 +111,44 @@ server; the order message carries it. Custom orders for organisations (see `/bes
 3. A second pipeline **«Тусгай захиалга»** for organisation orders: Хүсэлт → Загварын хувилбар → Батлагдсан →
    Урлаж байна → Хүлээлгэн өгсөн (the steps on `/bespoke`). Those requests come by email / phone today.
 4. **Frontline → Forms → (order form) → Settings**: create a sales card in «Шинэ захиалга» for every submission.
+
+## 1.5 Test order from cart to receipt
+
+**Verified on a local production build:** `npm run test:order -- http://localhost:3155` passes **28 checks**: empty
+cart, unknown product, an option on a product without options, a product with choices needs all of them (none, only
+some, a value not offered, all chosen), sold-out, more than the stock, no minimum (one 13,000₮ item), city + 10,000₮,
+free from 200,000₮, countryside (fee null), pick-up rejected, address required (city, countryside), QPay accepted,
+bank transfer and unknown payment rejected, unknown delivery, company registry rejected and accepted, phone (incl.
++976), email, quantity over 10, the browser's price ignored, honeypot. Without erxes the order returns
+`503 not_configured` and the checkout shows the phone number, the reference (`CH-YYMMDD-XXXX`) and the total.
+
+Steps for a real test order:
+
+1. **Frontline → Forms → Create** «Вэбсайт захиалга» with fields Нэр, Утас, Имэйл, Захиалга. Copy the form id and
+   the field ids.
+2. In Vercel set `ERXES_API_URL`, `ERXES_ORDER_FORM_ID`, `ERXES_ORDER_FIELD_IDS`, then redeploy.
+3. Run `npm run test:order -- https://chandmani-web.vercel.app --send`. The script prints the expected total (a tie and
+   the cheapest item + 10,000₮ city delivery).
+4. In erxes: find the submission and its card → send the QPay invoice and pay it → issue the eBarimt → move the card
+   to «Хүргэгдсэн» → void the test order.
+
+---
+
+## Open questions for Chandmani
+
+1. **Product count**: Zochil reports 436 products, its listing returns 430. Are 6 hidden or drafts?
+2. **Shared names**: 360 products share 13 names («Зангиа», «Бэлгийн багц 7»…). Can they get real names (pattern,
+   colour)? Until then the article number tells them apart.
+3. **Colour filter** is estimated from photos (sets on dark or green backgrounds are the least reliable). Should staff
+   tag colours in erxes instead?
+4. **210 sold-out products**: hide them for good, or keep them as «made to order»?
+5. **Countryside**: enabled on Zochil without a fee. How is it sent and who pays the bus?
+6. **Pick-up / showroom**: not enabled on Zochil. Is there an address where customers can collect or see the ties?
+7. **QPay merchant** outside Zochil: credentials for erxes.
+8. **TIN / PosAPI** for eBarimt.
+9. **Custom orders**: keep email / phone, or add a request form on `/bespoke` that creates a card in «Тусгай
+   захиалга»?
+10. **FAQ on payment** says cash, card and online payment work «on the site and in the store»; online it is QPay only,
+    so the site leaves that answer out. Confirm or correct.
+11. **72-hour exchange**: does the 72 hours run from delivery or from payment?
+12. **Domain**: point chandmani.mn at the new site when ready.
